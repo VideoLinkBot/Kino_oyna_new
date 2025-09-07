@@ -1,22 +1,25 @@
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+import os
 
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# Start komandasi
+# /start komandasi
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     username = user.username if user.username else user.first_name
     await update.message.reply_text(
         f"Assalomu alaykum {username}!\n"
-        "Bizning Kino_Oyna botimizga xush kelibsiz 🎬\n\n"
+        "🎬 Bizning Kino_Oyna botimizga xush kelibsiz!\n\n"
         "📌 Kino olish uchun kodni yozing."
     )
 
-# Foydalanuvchi kod kiritganda
+# Kod kiritilganda
 async def get_code(update: Update, context: ContextTypes.DEFAULT_TYPE):
     code = update.message.text
-    await update.message.reply_text(f"Siz kiritgan kod: {code}\n🔍 Tez orada kino yuklanadi...")
+    await update.message.reply_text(
+        f"Siz kiritgan kod: {code}\n🔍 Tez orada kino yuklanadi..."
+    )
 
 def main():
     app = Application.builder().token(BOT_TOKEN).build()
